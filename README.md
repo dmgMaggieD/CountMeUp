@@ -105,7 +105,6 @@ when you increase the number of threads, the performance is better, but it depen
 ### Problems of Solution 5 and Solution 6:
 * Solution 5 and 6 are failed attempts: 
 After I finished the two Solutions 5 and 6, I test out that the result (candidates' vote count) is different from other solutions. Finally I figure out the reason: 
-
 The problem happens when use multi-threads to operate the votes list parallel. Because the votes list contains the important information of the votes time order, and the rule is to treat the votes that more than 3 times for one user according time as invalid. However, we ignore the time order information when we parallel operate the votes list, which definitely leads to inaccurate result. 
 
 * Solutions failed but I got an idea! 
@@ -114,10 +113,9 @@ Inspired by multi-threads + cocurrentHashMap, I think I can use the cocurrentHas
 ### Solution 7: Parallel 8 Threads Map Votes To Integer Array (Submission Version)
 
 * Idea: 
-Inspired by solution 4, 5, 6, and combine them together.  
-To reduce HashMap hit, we instead use arrays to stores map of user ID(as array index) to votes count(as array value) and map of candidate ID(as array index) to votes count(as array value). To get these two arrays, we need to generate user ID and candidate ID and HashMap that map name to ID for both user and candidate.
-
-I use CocurrentHashMap + partitioned votes list + multi-threads mechanism for the part of user ID, candidate ID generation and transferring name to ID to create arrays, because the traversal of list votes list in this part does't care the time order of votes. 
+Inspired by solution 2, 4, 5, 6, and combine them together. 
+Solution 5 and 6 use concurrent hashmap for count operation, but count is order sensitive, so I think why not use concurrent hashmap to create the input of ideal solution(takes about 600ms similar to Solution 6), which is not order sensitive, and then use idea solution(takes about 200ms) to solve the problem(in less than 1 second)!
+So I use CocurrentHashMap to map the list of Vote objects(contains user name and candidate name) to an array of int pair, each pair contains the mapped user id and candidate id, then use this array of int pair as input, count the valid votes using the ideal solution.
 
 * Performance: 
 About 0.9s, which is below 1s, improves 2.3s compared to solution 4, 2.3s compared to solution 3, 3.7s compared to solution 1.
