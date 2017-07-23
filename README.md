@@ -106,32 +106,34 @@
 
 ## Prerequisites
 * [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* [Eclipse](https://www.eclipse.org/downloads/)
 
 ## Running
 To run the application, go to the project directory and run the following command:
-* java -Xms4g -Xmx6g -jar CountMeUp.jar
+* `java -Xms4g -Xmx6g -jar CountMeUp.jar`
 
 In terminal:
-* Generating Data for CountMeUp ... 
-* 
-* Correct Numbers: 
-* invalidVoteCount: 1090472
-* Candidate-0: 1782535; Candidate-1: 1781974; Candidate-2: 1781103; Candidate-3: 1782446; Candidate-4: 1781470; 
-* 
-* Start CountMeUp!
-* 
-* Time Cost: 1001ms
-* invalidVoteCount: 1090472
-* Candidate-0: 1782535; Candidate-1: 1781974; Candidate-2: 1781103; Candidate-3: 1782446; Candidate-4: 1781470; 
-* 
-* Finished!
+```
+Generating Data for CountMeUp ... 
+
+Correct Numbers: 
+invalidVoteCount: 1088794
+Candidate-0: 1781436; Candidate-1: 1783026; Candidate-2: 1782243; Candidate-3: 1783789; Candidate-4: 1780712; 
+ 
+Start CountMeUp!
+ 
+Time Cost: 905ms
+invalidVoteCount: 1088794
+Candidate-0: 1781436; Candidate-1: 1783026; Candidate-2: 1782243; Candidate-3: 1783789; Candidate-4: 1780712; 
+ 
+Finished!
+```
 
 ## Test
 To run the JUnit test with all the solutions, go to the project directory and run the following command:
-* java -Xms4g -Xmx6g -jar CountMeUp.jar 
+* `java -Xms4g -Xmx6g -jar CountMeUp.jar` 
 
 In terminal:
+```
 JUnit version 4.12
 Correct: 
 invalidVoteCount: 1089484
@@ -169,6 +171,7 @@ Candidate-0: 1781643; Candidate-1: 1782003; Candidate-2: 1779691; Candidate-3: 1
 Time: 50.413
 
 OK (7 tests)
+```
 
 ## Other problems That I Came Across
 * Problem : Some time during the process of one solution, the JVM will interrupted to GC, which will add to the cost of this Solution. 
