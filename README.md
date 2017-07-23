@@ -1,4 +1,4 @@
-# BBC Count Me Up (Real Time)
+# BBC Count Me Up (In One Second)
 
 ## Feature: Counting Votes:
   As a BBC television presenter
@@ -87,7 +87,7 @@ HashMap collisions still cost most, instead of reduce the HashMap collisions or 
 Based on the "points can be improved" in solution 3, I try to use multi-threads to parallel operations to reduce the response time.
 I use cocurrentHashMap instead of HashMap to allow multi-threads operate the one HashMap at the same time.
 I partition the votes list to 4 parts and create 4 threads, ensure there is one thread being responsible for each list part.
-To keep data consistency, I use atomic methods such as putIfAbsent(), and Type AtomicInteger to replace int type to operate increment and decrement by atomic methods of incrementAnGet(), decrementAndGet().
+To keep data consistency, I use atomic methods such as putIfAbsent(), and Class AtomicInteger to replace int type to operate increment and decrement by atomic methods of incrementAnGet(), decrementAndGet().
 
 * Performance: 
 About 0.65s, which is below 1s, enhance 2.6s compared to solution 4, 2.6s compared to solution 3, 4s compared to solution 1.
@@ -114,7 +114,7 @@ Inspired by multi-threads + cocurrentHashMap, I think I can use the cocurrentHas
 
 * Idea: 
 Inspired by solution 2, 4, 5, 6, and combine them together. 
-Solution 5 and 6 use concurrent hashmap for count operation, but count is order sensitive, so I think why not use concurrent hashmap to create the input of ideal solution(takes about 600ms similar to Solution 6), which is not order sensitive, and then use idea solution(takes about 200ms) to solve the problem(in less than 1 second)!
+Solution 5 and 6 use concurrent hashmap for count operation, but count is order sensitive, so I think why not use concurrent hashmap to create the input of ideal solution(takes about 600ms similar to Solution 6), which is not order sensitive, and then use ideal solution(takes about 200ms) to solve the problem(in less than 1 second)!
 So I use CocurrentHashMap to map the list of Vote objects(contains user name and candidate name) to an array of int pair, each pair contains the mapped user id and candidate id, then use this array of int pair as input, count the valid votes using the ideal solution.
 
 * Performance: 
@@ -194,7 +194,10 @@ OK (7 tests)
 ```
 
 ## Other problems That I Came Across
-* Problem : Some time during the process of one solution, the JVM will interrupted to GC, which will add to the cost of this Solution. 
-  Solution: force JVM to GC before every test. 
+* Problem: Sometimes during the process of one solution, the JVM will interrupted by GC, which will add extra cost to the Solution.
+* Solution: force JVM to GC before every test. 
+
+* Problem: Mutli-thread will cause race condition in concurrent hashmap put operation and invalid vote count increment.
+* Solution: Change to use atomic methods or classes, e.g. putIfAbsent() and AtomicInteger.
 
 
