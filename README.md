@@ -128,6 +128,12 @@ About 0.9s, which is below 1s, improves 2.3s compared to solution 4, 2.3s compar
 * [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 ## Running
+### Running Environment
+I run this project on my Mac pro with:
+* 2.2 GHz Intel Core i7
+* 16 GB 1600 MHz DDR3 of memory
+Performance may be different depending on the machine.
+
 To run the application, go to the project directory and run the following command:
 * `java -Xms4g -Xmx6g -jar CountMeUp.jar`
 
