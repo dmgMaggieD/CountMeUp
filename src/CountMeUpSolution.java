@@ -11,44 +11,55 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.runner.JUnitCore;
 
 public class CountMeUpSolution {
+	// Const variables related to problem scale.
 	static final int VOTE_CAPACITY = 10000000;
 	static final int CANDIDATE_CAPACITY = 5;
 	static final int USER_CAPACITY = 5000000;
 
+	// The generated Input of the problem.
 	static final List<Vote> VOTES_INPUT = new ArrayList<Vote>();
 	static final Map<String, Double> CANDIDATES_INPUT = new HashMap<String, Double>();
+	static int correctInvalidVoteCount = 0;
+	// The Input used by ideal Solution 2 without any hash.
 	static int[][] VOTES_INPUT_ARRAY = new int[VOTE_CAPACITY][2];
 	static double[] CANDIDATES_INPUT_ARRAY = new double[CANDIDATE_CAPACITY];
-	static int correctInvalidVoteCount = 0;
 
+	// The arrays used to generate correct answers.
 	final static int[] userVoteCountArray = new int[USER_CAPACITY];
 	final static int[] allCandidateVoteCountArray = new int[CANDIDATE_CAPACITY];
 	final static int[] validCandidateVoteCountArray = new int[CANDIDATE_CAPACITY];
 	
-
+	static int invalidVoteCount = 0;
+	
+	// The maps used in Solution 1.
 	static final Map<String, Integer> userVoteCount = new HashMap<String, Integer>();
 	static final Map<String, Integer> candidateVoteCount = new HashMap<String, Integer>();
 
+	// The map with capacity set used in Solution 3.
 	static final Map<String, Integer> userVoteCountCapacity = new HashMap<String, Integer>(VOTE_CAPACITY * 2);
-	static int invalidVoteCount = 0;
-
+	
+	// The int array for candidate used in Solution 4.
 	static final int[] candidateVoteNum = new int[CANDIDATE_CAPACITY];
 	static final Map<String, Integer> candidateIdMap = new HashMap<String, Integer>();
 
+	// The ConcurrentHashMap of user/candidate name to votes used by Solution 5 and 6
 	static AtomicInteger atomInvalidVoteCount = new AtomicInteger(0);
 	static final ConcurrentHashMap<String, AtomicInteger> concurrentUserVoteCount = new ConcurrentHashMap<String, AtomicInteger>(
 			VOTE_CAPACITY * 2);
 	static final ConcurrentHashMap<String, AtomicInteger> concurrentCandidateVoteCount = new ConcurrentHashMap<String, AtomicInteger>();
 
+	// The ConcurrentHashMap of user/candidate name to id used by Solution 7
 	static AtomicInteger atomUserId = new AtomicInteger(0);
 	static final int[][] votesInNum = new int[VOTE_CAPACITY + 10][2];
 	static final ConcurrentHashMap<String, Integer> concurrentUserIdMap = new ConcurrentHashMap<String, Integer>(
 			VOTE_CAPACITY * 2);
 	
 	public static void main(String[] args) throws Exception {
+		// JUnitCore added so we could export jar for JUnit tests.
 		JUnitCore.main("CountMeUpSolutionTest");
 	}
 	
+	// Generate input data for CountMeUp.
 	public static void generateData() {
 		invalidVoteCount = 0;
 		for (int i = 0; i < VOTE_CAPACITY; i++) {
@@ -85,7 +96,7 @@ public class CountMeUpSolution {
 		System.out.println();
 	}
 	
-	
+	// Simple solution using HashMap.
 	public static Map<String, Integer> countMeUp_1_Simple(List<Vote> votes, Map<String, Double> candidatePercentage) {
 		initCandidateVoteCount(candidatePercentage);
 
@@ -102,6 +113,7 @@ public class CountMeUpSolution {
 		return candidateVoteCount;
 	}
 
+	// Ideal solution deal with user/candidate int ids instead of String names.
 	public static int[] countMeUp_2_Ideal(int[][] votes, double[] candidates) {
 		int[] candidateVoteCount = new int[candidates.length];
 
@@ -123,6 +135,7 @@ public class CountMeUpSolution {
 		return candidateVoteCount;
 	}
 
+	// Give capacity to HashMap in simple solution 1.
 	public static Map<String, Integer> countMeUp_3_GivenCapacity(List<Vote> votes,
 			Map<String, Double> candidatePercentage) {
 		initCandidateVoteCount(candidatePercentage);
@@ -140,6 +153,7 @@ public class CountMeUpSolution {
 		return candidateVoteCount;
 	}
 
+	// Change to use int array for candidate votes.
 	public static Map<String, Integer> countMeUp_4_CandidateArray(List<Vote> votes,
 			Map<String, Double> candidatePercentage) {
 		initCandidateVoteCountToArray(candidatePercentage);
@@ -161,6 +175,7 @@ public class CountMeUpSolution {
 		return candidateVoteCount;
 	}
 
+	// Solution using ConcurrentHashMap to count user votes.
 	public static Map<String, AtomicInteger> countMeUp_5_Parallel4(List<Vote> votes,
 			Map<String, Double> candidatePercentage) {
 		initConcurrentCandidateVoteCount(candidatePercentage);
@@ -182,6 +197,7 @@ public class CountMeUpSolution {
 		return concurrentCandidateVoteCount;
 	}
 
+	// Solution using ConcurrentHashMap to count user votes, more threads.
 	public static Map<String, AtomicInteger> countMeUp_6_Parallel8(List<Vote> votes,
 			Map<String, Double> candidatePercentage) {
 		initConcurrentCandidateVoteCount(candidatePercentage);
@@ -203,6 +219,7 @@ public class CountMeUpSolution {
 		return concurrentCandidateVoteCount;
 	}
 
+	// Solution using ConcurrentHashMap to map Vote object to int array, then use ideal solution to count votes.
 	public static Map<String, Integer> countMeUp_7_ParallelMapToArray(List<Vote> votes,
 			Map<String, Double> candidatePercentage) {
 		initCandidateVoteCountToArray(candidatePercentage);
@@ -233,6 +250,7 @@ public class CountMeUpSolution {
 		return getMapResultFromArray(candidatePercentage);
 	}
 
+	// Helper method to initialise the candidate vote count.
 	public static void initCandidateVoteCount(Map<String, Double> candidatePercentage) {
 		for (Map.Entry<String, Double> entry : candidatePercentage.entrySet()) {
 			double percentage = entry.getValue();
@@ -240,6 +258,7 @@ public class CountMeUpSolution {
 		}
 	}
 
+	// Helper method to initialise the candidate vote count to an int array.
 	public static void initCandidateVoteCountToArray(Map<String, Double> candidatePercentage) {
 		int currentCandidateId = 0;
 		for (Map.Entry<String, Double> entry : candidatePercentage.entrySet()) {
@@ -250,6 +269,7 @@ public class CountMeUpSolution {
 		}
 	}
 
+	// Helper method to initialise the candidate vote count using ConcurrentHashMap.
 	public static void initConcurrentCandidateVoteCount(Map<String, Double> candidatePercentage) {
 		for (Map.Entry<String, Double> entry : candidatePercentage.entrySet()) {
 			double percentage = entry.getValue();
@@ -258,6 +278,7 @@ public class CountMeUpSolution {
 		}
 	}
 
+	// Helper method to transfer the result candidateVoteNum int array to a Map.
 	public static Map<String, Integer> getMapResultFromArray(Map<String, Double> candidatePercentage) {
 		Map<String, Integer> candidateVoteCount = new HashMap<String, Integer>();
 		for (Map.Entry<String, Double> entry : candidatePercentage.entrySet()) {

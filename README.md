@@ -32,7 +32,7 @@ For each candidate, the result map contains the number of the his/her valid vote
 ## Solutions
 
 ### The running results and performance of all 7 solutions.
-![Screenshot 1](https://lh3.googleusercontent.com/GcOH0LVvlZp40kwIYLxWBQLX_DjEVF-zqCMtPUxbvxCrbEedJfzrI_bca4rAzAeDVeQVTxvq7K7WLMGi7WFjN4wuCjXAlcm-61XJMzklA3l-D43w2TteYRtdrmwdE5SeUX30gbNfxOimO3sb-hOSdgks5zWHgbcuP9r6FcMbB9pE2AW-mqdNYQ6m3Bh7fcLTHb7TYNHK5lFXWe-3kNH9MF6erPYXJZP45jj8YJxQ1SaCmzj9rid40MJhDsb7ZRnzAQfgQni1GeTfMH72XwZ-ian2CKoZJxG0QG5onCGNX-EbTH5wJCvMuRf4sfbllP2MijTVmAxoVlvD6ItOVXCC9xAg-8E_yki0hETgALrN-UfW6M-i7tw_2_GuCZ03rI_v6YPbU6jiMLl5a5KSBgNFZN8Dfy8lb2PU8qNvttWkMQCjsQOuLWBoqKDRwIf2veXkwkstNV4xYQtC_Rw8Y7OavtfqrlhPHIH3aaEWHhkhoCBQX0YRxlSxAbVa0SwhzVCqlrvFi5-dQts885Nkr2ifzPOUN2oE4ngF2LHGwDR2osUPvzEDbavjKImmMeQRclhd-2hV2xdpNEJTomkKVAh0MAbxwdRts2e01qd8l9TRvutjjFz43oVktjCW=w1562-h1112-no)
+![Screenshot 1](https://image.ibb.co/jE9qVQ/Screen_Shot_2017_07_23_at_4_23_56_pm.png)
 
 ### Solution 1: Simple Version
 
